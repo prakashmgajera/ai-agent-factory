@@ -27,27 +27,32 @@ scripts/                 # Utility scripts
 config/                  # Configuration files
 ```
 
+
 ## Example: Simple Chat Agent
 
-Below is an example of how to create a simple chat agent using this framework:
+Below is an example of how to create a simple chat agent using this framework, following the current structure:
 
 ```python
-from connectors.models.openai import OpenAIModelConnector
-from connectors.models.gemini import GoogleGeminiModelConnector
+# Import the required classes and enums
+from connectors.models.model_connectors import ModelChoice, ModelConnectorFactory
+from prompts.system_prompts import WEATHER_AGENT
 from agents.simple_chat_agent import ChatAgent
 
-system_prompt = (
-    "You are a helpful assistant that provides weather information for any city or area. "
-    "When the user asks about the weather, respond with the current weather details."
-)
+# Use a pre-defined system prompt for weather info
+system_prompt = WEATHER_AGENT
 
-# Choose model connector
-model = OpenAIModelConnector(api_key="your-openai-api-key")
-# or
-# model = GoogleGeminiModelConnector(api_key="your-gemini-api-key")
+# Set model choice (choose from ModelChoice.OPENAI or ModelChoice.GOOGLE_GEMINI)
+model_choice = ModelChoice.OPENAI  # or ModelChoice.GOOGLE_GEMINI
 
+# Use the factory to get the model connector (API keys/configuration should be set in your environment or config)
+model = ModelConnectorFactory.get_model_connector(model_choice)
+
+# Create the chat agent
 agent = ChatAgent(model_connector=model, system_prompt=system_prompt)
-response = agent.chat("What's the weather in Paris?")
+
+# Simulate a chat
+user_input = "What's the weather in San Francisco?"
+response = agent.chat(user_input)
 print(response)
 ```
 
@@ -55,7 +60,7 @@ print(response)
 
 1. Clone the repository
 2. Install dependencies (if any)
-3. Add your API keys and configuration
+3. Add your API keys and configuration (see `config/` or environment variables as required by your model connector)
 4. Start building your agents!
 
 ## License
