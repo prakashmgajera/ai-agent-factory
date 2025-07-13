@@ -58,6 +58,6 @@ if __name__ == "__main__":
     # Create the chat agent
     agent = ChatAgent(model_connector=model, system_prompt=system_prompt)
     # Simulate a chat
-    user_input = "What's the weather in Paris?"
+    user_input = "What's the weather in San Francisco?"
     response = agent.chat(user_input)
     print(response)
