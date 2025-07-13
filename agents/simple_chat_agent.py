@@ -11,7 +11,7 @@ Usage example at the bottom.
 # Import model connectors from the connectors/models directory
 from connectors.models.base import BaseModelConnector
 from connectors.models.openai import OpenAIModelConnector
-from connectors.models.gemini import GoogleGeminiModelConnector
+from connectors.models.google_gemini import GoogleGeminiModelConnector
 
 class ChatAgent:
     def __init__(self, model_connector: BaseModelConnector, system_prompt: str):
