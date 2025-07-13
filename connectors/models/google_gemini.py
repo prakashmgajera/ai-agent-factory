@@ -17,6 +17,7 @@ try:
 except ImportError:
     pass  # dotenv is optional, but recommended for local development
 
+
 # Import the official Google Gemini API client
 try:
     import google.generativeai as genai
@@ -24,8 +25,12 @@ except ImportError:
     genai = None  # Will raise in __init__ if used
 
 
+from typing import Optional
+
 class GoogleGeminiModelConnector(BaseModelConnector):
-    def __init__(self, api_key: str = None, model_name: str = "models/gemini-2.5-pro"):
+    from typing import Optional
+
+    def __init__(self, api_key: Optional[str] = None, model_name: str = "models/gemini-2.5-pro"):
         if genai is None:
             raise ImportError("google-generativeai package is required. Install with 'pip install google-generativeai'.")
         if api_key is not None:
@@ -40,10 +45,11 @@ class GoogleGeminiModelConnector(BaseModelConnector):
         if not self.api_key:
             raise ValueError("Gemini API key must be provided via argument, .env/GEMINI_API_KEY, or user input.")
 
-        # Configure the Gemini API client
-        genai.configure(api_key=self.api_key)
+        # Set the API key for the Gemini API client
+        os.environ["GOOGLE_API_KEY"] = self.api_key
         # Use the latest supported Gemini model name. Check the Gemini API docs for updates.
         self.model_name = model_name
+        # Use the correct Gemini API client instantiation
         self.model = genai.GenerativeModel(self.model_name)
 
     def generate(self, prompt: str) -> str:
