@@ -11,18 +11,22 @@ from enum import Enum
 class ModelChoice(Enum):
     OPENAI = "openai"
     GOOGLE_GEMINI = "google_gemini"
+    HUGGINGFACE = "huggingface"
 
 
 # Factory class to get model connector instance
 class ModelConnectorFactory:
     @staticmethod
-    def get_model_connector(model_choice: ModelChoice, api_key: str = None):
+    def get_model_connector(model_choice, api_key=None):
         if model_choice == ModelChoice.OPENAI:
             from connectors.models.openai import OpenAIModelConnector
             return OpenAIModelConnector(api_key=api_key)
         elif model_choice == ModelChoice.GOOGLE_GEMINI:
             from connectors.models.google_gemini import GoogleGeminiModelConnector
             return GoogleGeminiModelConnector(api_key=api_key)
+        elif model_choice == ModelChoice.HUGGINGFACE:
+            from connectors.models.hf import HuggingFaceModelConnector
+            return HuggingFaceModelConnector()
         else:
             raise ValueError(f"Unknown model choice: {model_choice}")
 """
@@ -33,3 +37,4 @@ This file imports and exposes the main connectors for convenience.
 from connectors.models.base import BaseModelConnector
 from connectors.models.openai import OpenAIModelConnector
 from connectors.models.google_gemini import GoogleGeminiModelConnector
+from connectors.models.hf import HuggingFaceModelConnector

@@ -47,10 +47,9 @@ if __name__ == "__main__":
     system_prompt = WEATHER_AGENT
 
     # User can choose which model connector to use
-
-
     # Set model choice here
-    model_choice = ModelChoice.GOOGLE_GEMINI  # Change to ModelChoice.GOOGLE_GEMINI to use Google Gemini
+    # model_choice = ModelChoice.GOOGLE_GEMINI  # Uncomment to use Google Gemini
+    model_choice = ModelChoice.HUGGINGFACE  # Use HuggingFaceModelConnector
 
     # Use the factory to get the model connector
     model = ModelConnectorFactory.get_model_connector(model_choice)
@@ -58,6 +57,6 @@ if __name__ == "__main__":
     # Create the chat agent
     agent = ChatAgent(model_connector=model, system_prompt=system_prompt)
     # Simulate a chat
-    user_input = "What's the most likely weather in San Francisco during summer?"
+    user_input = "What the weather in San Francisco during summer?"
     response = agent.chat(user_input)
     print(response)
