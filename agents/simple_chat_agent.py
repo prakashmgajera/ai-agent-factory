@@ -10,8 +10,18 @@ A simple chat agent framework example.
 Usage example at the bottom.
 """
 
+
+# Allow running as a script by adding project root to sys.path
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
 # Import ModelChoice enum and ModelConnectorFactory from model_connectors
 from connectors.models.model_connectors import ModelChoice, ModelConnectorFactory
+
+# Import BaseModelConnector for type hinting
+from connectors.models.base import BaseModelConnector
 
 
 # Import model connectors from the connectors/models directory
