@@ -1,4 +1,11 @@
 """
+Abstract base class for all model connectors.
+
+Usage:
+    class MyConnector(BaseModelConnector):
+        ...
+"""
+"""
 BaseModelConnector: Abstract base class for all model connectors.
 """
 from abc import ABC, abstractmethod

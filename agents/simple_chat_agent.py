@@ -1,3 +1,5 @@
+
+
 """
 A simple chat agent framework example.
 
@@ -8,10 +10,16 @@ A simple chat agent framework example.
 Usage example at the bottom.
 """
 
+# Import ModelChoice enum and ModelConnectorFactory from model_connectors
+from connectors.models.model_connectors import ModelChoice, ModelConnectorFactory
+
+
 # Import model connectors from the connectors/models directory
-from connectors.models.base import BaseModelConnector
-from connectors.models.openai import OpenAIModelConnector
-from connectors.models.google_gemini import GoogleGeminiModelConnector
+
+# No need to import individual connectors or base here
+
+# Import pre-defined system prompts
+from prompts.system_prompts import WEATHER_AGENT
 
 class ChatAgent:
     def __init__(self, model_connector: BaseModelConnector, system_prompt: str):
@@ -24,21 +32,18 @@ class ChatAgent:
 
 # Example usage:
 if __name__ == "__main__":
-    # Define a system prompt for weather info
-    system_prompt = (
-        "You are a helpful assistant that provides weather information for any city or area. "
-        "When the user asks about the weather, respond with the current weather details."
-    )
+
+    # Use a pre-defined system prompt for weather info
+    system_prompt = WEATHER_AGENT
 
     # User can choose which model connector to use
-    model_choice = "openai"  # Change to "gemini" to use Google Gemini
 
-    if model_choice == "openai":
-        model = OpenAIModelConnector(api_key="your-openai-api-key")
-    elif model_choice == "gemini":
-        model = GoogleGeminiModelConnector(api_key="your-gemini-api-key")
-    else:
-        raise ValueError("Unknown model choice")
+
+    # Set model choice here
+    model_choice = ModelChoice.OPENAI  # Change to ModelChoice.GOOGLE_GEMINI to use Google Gemini
+
+    # Use the factory to get the model connector
+    model = ModelConnectorFactory.get_model_connector(model_choice)
 
     # Create the chat agent
     agent = ChatAgent(model_connector=model, system_prompt=system_prompt)
