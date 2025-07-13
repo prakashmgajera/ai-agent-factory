@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
 
     # Set model choice here
-    model_choice = ModelChoice.OPENAI  # Change to ModelChoice.GOOGLE_GEMINI to use Google Gemini
+    model_choice = ModelChoice.GOOGLE_GEMINI  # Change to ModelChoice.GOOGLE_GEMINI to use Google Gemini
 
     # Use the factory to get the model connector
     model = ModelConnectorFactory.get_model_connector(model_choice)
